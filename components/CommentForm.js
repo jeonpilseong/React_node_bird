@@ -1,10 +1,9 @@
 import { Button, Form, Input } from 'antd';
 import { useCallback } from 'react';
 import useInput from '../hooks/useInput';
-import { useSelector } from 'react-redux';
 
 export default function CommentForm ({post}) {
-	const id = useSelector((state) => state.user.me?.id);
+
 	const [commentText, onChangeCommentText] = useInput('');
 	const onsubmitComment = useCallback(() => {
 		console.log(post.id, commentText);
