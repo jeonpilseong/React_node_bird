@@ -13,5 +13,4 @@ export default function PostCardContent ({postData}) {
 			}
 		</div>
 	)
-	
 }

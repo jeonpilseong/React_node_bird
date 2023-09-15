@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import useInput from '../hooks/useInput';
-import { loginAction } from '../reducers/user';
-import { useDispatch } from 'react-redux';
+import { loginRequestAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 // **** 최적화 기법
 // style-component로 빼주면 inline css 리렌더링 방지
@@ -18,6 +18,7 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
+	const { isLoggingIn } = useSelector((state) => state.user);
 	const [id, onChangeId] = useInput('');
 	const [password, onChangePassword] = useInput('');
 
@@ -26,7 +27,7 @@ const LoginForm = () => {
 
 	const onSubmitForm = useCallback(() => {
 		console.log(id, password);
-		dispatch(loginAction({id, password}));
+		dispatch(loginRequestAction({id, password}));
 	}, [id, password]);
 
 	return (
@@ -42,7 +43,7 @@ const LoginForm = () => {
 				<Input name='user-password' type='password' value={password} onChange={onChangePassword} required/>
 			</div>
 			<ButtonWrapper >
-				<Button type='primary' htmlType='submit' loading={false}>로그인</Button>
+				<Button type='primary' htmlType='submit' loading={isLoggingIn}>로그인</Button>
 				<Link href="/signup"><a><Button>회원가입</Button></a></Link>
 			</ButtonWrapper>
 		</FormWrapper>		
